@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Zeugma/Zeugma/App_Data
+/src/Zeugma/App_Data

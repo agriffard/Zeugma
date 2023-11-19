@@ -3,14 +3,16 @@ using Zeugma.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOrchardCms();
-    //.ConfigureServices(svc => {
-    //    svc.AddServerSideBlazor();
-    //})
-    //.Configure((a, b, c) => {
-    //    b.MapBlazorHub();
-    //    a.UseStaticFiles();
-    //});
+builder.Services.AddOrchardCms()
+    .ConfigureServices(svc =>
+     {
+         svc.AddServerSideBlazor();
+     })
+    .Configure((a, b, c) =>
+    {
+        b.MapBlazorHub();
+        a.UseStaticFiles();
+    });
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

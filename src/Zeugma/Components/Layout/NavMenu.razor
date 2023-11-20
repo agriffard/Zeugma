@@ -1,4 +1,8 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using OrchardCore.ContentManagement
+@using OrchardCore.DisplayManagement.Liquid;
+@inject OrchardCore.IOrchardHelper Orchard
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Zeugma</a>
     </div>
@@ -25,6 +29,27 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
             </NavLink>
         </div>
+        @foreach (var ocPage in pages)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="@("/p/" + ocPage.Content.AliasPart.Alias)">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> @ocPage.DisplayText
+                </NavLink>
+                @*<a href="@("/p/" + ocPage.Content.AliasPart.Alias)">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> @ocPage.DisplayText
+            </a>*@
+            </div>
+        }
     </nav>
+    @* <MainMenu></MainMenu> *@
 </div>
 
+
+@code {
+    private IEnumerable<ContentItem> pages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pages = await Orchard.ContentQueryAsync("Pages");
+    }
+}

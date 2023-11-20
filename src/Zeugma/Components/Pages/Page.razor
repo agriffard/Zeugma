@@ -28,14 +28,14 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (Alias.IndexOf("admin", StringComparison.OrdinalIgnoreCase) > -1)
-        {
-            NavigationManager.NavigateTo($"/{Alias}", true, true); // Redirect does not work if it is already on a page with an alias url
-        }
-        else
-        {
-            pageContent = await Orchard.GetContentItemByHandleAsync($"alias:{Alias}");
-            site = await SiteService.GetSiteSettingsAsync();
-        }
+        // if (Alias.IndexOf("admin", StringComparison.OrdinalIgnoreCase) > -1)
+        // {
+        //     NavigationManager.NavigateTo($"/{Alias}", true, true); // Redirect does not work if it is already on a page with an alias url
+        // }
+        // else
+        // {
+        pageContent = await Orchard.GetContentItemByHandleAsync($"alias:{Alias}");
+        site = await SiteService.GetSiteSettingsAsync();
+        //}
     }
 }

@@ -1,0 +1,41 @@
+﻿@page "/{alias}"
+@using Microsoft.AspNetCore.Mvc;
+@using OrchardCore;
+@using OrchardCore.ContentManagement;
+@using OrchardCore.Settings;
+@inject NavigationManager NavigationManager
+@inject IOrchardHelper Orchard
+@inject ISiteService SiteService
+
+@if (pageContent != null)
+{
+    <PageTitle>@pageContent.DisplayText - @site.SiteName</PageTitle>
+
+    <h1>@pageContent.DisplayText</h1>
+    @((MarkupString)(string)pageContent.Content.HtmlBodyPart.Html)
+}
+
+@code {
+    ContentItem pageContent;
+    ISite site;
+
+    [ParameterAttribute]
+    public string Alias { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Alias.IndexOf("admin", StringComparison.OrdinalIgnoreCase) > -1)
+        {
+            NavigationManager.NavigateTo($"/{Alias}", true, true); // Redirect does not work if it is already on a page with an alias url
+        }
+        else
+        {
+            pageContent = await Orchard.GetContentItemByHandleAsync($"alias:{Alias}");
+            site = await SiteService.GetSiteSettingsAsync();
+        }
+    }
+}

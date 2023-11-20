@@ -3,21 +3,25 @@ using Zeugma.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddRazorComponents()
+//    .AddInteractiveServerComponents()
+//    .AddInteractiveWebAssemblyComponents();
+
 builder.Services.AddOrchardCms()
     .ConfigureServices(svc =>
-     {
-         svc.AddServerSideBlazor();
-     })
+    {
+        svc.AddRazorComponents()
+        .AddInteractiveServerComponents()
+        .AddInteractiveWebAssemblyComponents();
+    })
     .Configure((a, b, c) =>
     {
-        b.MapBlazorHub();
-        a.UseStaticFiles();
+        a.UseAntiforgery();
+        b.MapRazorComponents<App>()
+            .AddInteractiveServerRenderMode()
+            .AddInteractiveWebAssemblyRenderMode()
+            .AddAdditionalAssemblies(typeof(Counter).Assembly);
     });
-
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
 
 var app = builder.Build();
 
@@ -36,13 +40,12 @@ else
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-app.UseAntiforgery();
 
 app.UseOrchardCore();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
+//app.MapRazorComponents<App>()
+//    .AddInteractiveServerRenderMode()
+//    .AddInteractiveWebAssemblyRenderMode()
+//    .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
 app.Run();

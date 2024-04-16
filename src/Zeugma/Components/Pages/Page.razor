@@ -10,7 +10,7 @@
 
 @if (pageContent != null)
 {
-    <PageTitle>@((pageContent.As<SeoMetaPart>()).PageTitle) - @site.SiteName</PageTitle>
+    <PageTitle>@(seo?.PageTitle) - @site.SiteName</PageTitle>
 
     <h1>@pageContent.DisplayText</h1>
     
@@ -37,9 +37,12 @@
         // }
         // else
         // {
-        pageContent = await Orchard.GetContentItemByHandleAsync($"alias:{Alias}");
-        seo = pageContent.As<SeoMetaPart>();
-        site = await SiteService.GetSiteSettingsAsync();
+        pageContent = await Orchard.GetContentItemByHandleAsync($"alias:{Alias}", true);
+        if (pageContent != null)
+        {
+            seo = pageContent.As<SeoMetaPart>();
+            site = await SiteService.GetSiteSettingsAsync();
+        }
         //}
     }
 }

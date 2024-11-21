@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Zeugma.Client\Zeugma.Client.csproj" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
-		<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="2.0.2" />
+		<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="2.1.0" />
 	</ItemGroup>
 
 </Project>

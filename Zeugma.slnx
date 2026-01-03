@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Zeugma.Client/Zeugma.Client.csproj" />
+  <Project Path="src/Zeugma/Zeugma.csproj" />
+</Solution>
